@@ -1,0 +1,219 @@
+  using System;
+
+
+namespace Domashka_2
+{
+    class Program
+    {
+        static void Main(string[] args)
+
+        //Старцев Семен
+        {
+            Task4();
+            Task5();
+            Task6();
+            Task7();
+
+
+        }
+
+        //Метод по возврату минимального из 3 чисел
+        static double min(double a, double b, double c)
+        {
+            double max = 0;
+            if (a <= b && a <= c) { max = a; }
+            else
+            {
+                if (b <= a && b <= c) { max = b; }
+                else
+                {
+                    if (c <= b && c <= a) { max = c; }
+                }
+            }
+            return max;
+        }
+
+        static void Task5() { 
+
+            Console.Clear();
+            Console.WriteLine("5 задание, программа по вычислению индекса массы тела.");
+            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+            Console.ReadKey();
+            Console.Clear();
+
+            double wt, ht, wttemp, index;
+
+            Console.Write("Введите ваш вес в кг через запятую (прим. 45,5):");
+            wt = double.Parse(Console.ReadLine());
+
+            Console.Write("Введите ваш рост в метрах через запятую (прим. 1,76):");
+            ht = double.Parse(Console.ReadLine());
+
+            index = wt / (ht * ht);
+
+            if (index < 18.5)
+            {
+                wttemp = 18.5 * (ht * ht);
+                Console.WriteLine($"Ваш индекс {index:0.0}, что означает дефицит веса. Норма с 18.5 до 24,99. \nДо нижнего порога нормы Вам необходимо набрать {wttemp - wt:0.0} кг.");
+                Console.WriteLine("Для перехода к следующему заданию нажмите любую клавишу...");
+                Console.ReadKey();
+            }
+            else if (index >= 25)
+            {
+                wttemp = 24.99 * (ht * ht);
+                Console.WriteLine($"Ваш индекс {index:0.0}, что означает избыток веса. Норма с 18.5 до 24,99. \nДо верхнего порога нормы Вам необходимо сбросить {wt - wttemp:0.0} кг.");
+                Console.WriteLine("Для перехода к следующему заданию нажмите любую клавишу...");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine($"Да, нормальный у Вас вес. Ваш индекс {index:0.0}.");
+                Console.WriteLine("Для перехода к следующему заданию нажмите любую клавишу...");
+                Console.ReadKey();
+            }
+        }
+        static void Task4()
+        {
+            Console.Clear();
+            Console.WriteLine("4 задание, по проверке логина и пароля");
+            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+            Console.ReadKey();
+
+            int i = 0;
+            string s1, s2;
+
+            do
+            {
+                Console.Clear();
+
+                Console.Write("Введите логин:");
+                s1 = Console.ReadLine();
+
+                Console.Write("Введите пароль:");
+                s2 = Console.ReadLine();
+
+                if (Task_4_Authorization(s1, s2))
+                {
+                    Console.WriteLine("Вы ввели правильный логин и пароль!");
+                    Console.WriteLine("Для перехода к следующему заданию нажмите любую клавишу...");
+                    Console.ReadKey();
+                    break;
+                }
+                else
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            Console.WriteLine("Логин или пароль неверен. Введите логин и пароль еще раз. Осталось 2 попытки");
+                            Console.ReadKey();
+                            break;
+
+                        case 1:
+                            Console.WriteLine("Логин или пароль неверен. Введите логин и пароль еще раз. Осталось 1 попытка");
+                            Console.ReadKey();
+                            break;
+
+                        default:
+                            Console.WriteLine("Превышен лимит попыток!");
+                            Console.WriteLine("\nДля перехода к следующему заданию нажмите любую клавишу...");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+
+                i++;
+
+            } while (i <= 2);
+        }
+
+        static bool Task_4_Authorization(string s1, string s2)
+        {
+            return (s1 == "root" && s2 == "GeekBrains") ? true : false;
+        }
+        static void Task7()
+        {
+            Console.Clear();
+            Console.WriteLine("7 задание - рекурсивный метод, который считает сумму чисел от a до b.");
+            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+            Console.ReadKey();
+            Console.Clear();
+
+            int a, b, sum;
+
+            Console.Write("Введите целое число a: ");
+            a = int.Parse(Console.ReadLine());
+
+            Console.Write("Введите целое число b: ");
+            b = int.Parse(Console.ReadLine());
+
+            if (a > b)
+            {
+                Task_7_Obmen(ref a, ref b);
+            }
+
+            sum = 0;
+            sum = Task_7_summa(a, b, sum);
+
+            Console.WriteLine($"Сумма: {sum}");
+            Console.WriteLine("Для завершения работы нажмите любую клавишу...");
+            Console.ReadKey();
+        }
+
+        static int Task_7_summa(int a, int b, int sum)
+
+        {
+            if (a == b)
+            {
+                return a;
+            }
+            else
+            {
+                sum = a + Task_7_summa(++a, b, sum); 
+                return sum;
+            }
+        }
+
+        static void Task_7_Obmen(ref int a, ref int b)
+        {
+            int temp;
+            temp = b; b = a; a = temp;
+        }
+        static void Task6()
+        {
+            Console.Clear();
+            Console.WriteLine("6 задание по подсчету \"Хороших\" чисел.");
+            Console.WriteLine("Для продолжения нажмите любую клавишу...");
+            Console.ReadKey();
+            Console.Clear();
+
+            int sum = 0, count = 0;
+            int num, numtemp;
+            DateTime start = DateTime.Now;
+
+            for (num = 1; num <= 1_000_000_0; num++)            {
+                numtemp = num;
+
+                do
+                {
+                    sum = sum + (numtemp - ((int)(numtemp / 10)) * 10);
+                    numtemp = numtemp / 10;
+
+                } while (numtemp != 0);
+
+                if (num % sum == 0)
+                {
+                    count++;
+                }
+
+                sum = 0;
+
+            }
+
+            DateTime finish = DateTime.Now;
+
+            Console.WriteLine($"Количество \"Хороших\" чисел: {count}");
+            Console.WriteLine($"Подсчет длился: {finish - start}");
+
+        }
+    }
+}
